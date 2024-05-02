@@ -1,0 +1,421 @@
+{
+  "modules": {
+    "mustache": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.MustacheEnricherModule/versions/1",
+        "$timestamp": "2019-09-05T13:06:04.4946476Z",
+        "$version": 1
+      }
+    },
+    "azure": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.IotHubSenderModule/versions/1",
+        "$timestamp": "2019-09-13T13:09:51.2439004Z",
+        "$version": 1
+      }
+    },
+    "center": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.EcmNetCore.Modules.DeviceCenterModule/versions/1",
+        "$timestamp": "2020-09-17T16:03:53.7426735Z",
+        "$version": 1
+      }
+    },
+    "modbus": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.ModbusReaderModule/versions/1",
+        "$timestamp": "2020-09-17T16:03:53.7426459Z",
+        "$version": 1
+      }
+    },
+    "mqtt": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.MqttSenderModule/versions/2",
+        "broker": {
+          "tls": {
+            "allowUntrustedCertificates": true,
+            "use": false
+          },
+          "cleansession": true,
+          "clientid": "W01EMCIBPr\u00fcfstandIV61545",
+          "enabled": true,
+          "hostname": "10.161.155.132",
+          "port": 1883
+        },
+        "$messageInputs": {
+          "splunk": "data",
+          "splunkPoll": "data"
+        },
+        "default_message_retain_flag": false,
+        "topic": "W01EMCIBPr\u00fcfstandIV61545",
+        "skip_non_json_messages_from_mqttbroker": true,
+        "$messageOutputs": {
+          "": ""
+        },
+        "subscribe": {
+          "": ""
+        },
+        "maxQueueSize": 1000,
+        "$timestamp": "2024-03-21T22:27:01.6735885Z",
+        "$version": 1
+      }
+    },
+    "rfcreader": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.RFC1006ReaderModule/versions/1",
+        "$timestamp": "2019-09-05T13:06:04.4949257Z",
+        "$version": 1
+      }
+    },
+    "opcua": {
+      "configuration": {
+        "servers": {
+          "W16FunctionTesterODUIV590461": {
+            "endpoint": {
+              "pollGroups": {
+                "S1.Data": {
+                  "name": "S1.Data",
+                  "nodes": {
+                    "S1.Waiting_PG": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bWaiting",
+                    "S1.Producing_PG": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bProducing"
+                  },
+                  "intervalMs": 15000,
+                  "outputTopic": "splunkPoll"
+                },
+                "GatewayWatchdog": {
+                  "nodes": {
+                    "_System.Data_Source.Database_Read.General.Status": "ns=2;s=_System.Data_Source.Database_Read.General.Status",
+                    "Connection_Status": "ns=2;s=_System.Data_Source.OPC UA Server.BeckhoffTwinCAT_IV590461.Connection Status"
+                  },
+                  "name": "GatewayWatchdog",
+                  "outputTopic": "splunkPoll",
+                  "intervalMs": 900000
+                }
+              },
+              "subscriptionGroups": {
+                "Data_1_min": {
+                  "publishingIntervalMs": 1000,
+                  "republishingIntervalMs": 10000,
+                  "onChangeSubmitFullModel": false,
+                  "onRepublishSubmitFullModel": false,
+                  "nodes": {
+                    "Auswahl_Verfluessiger": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.f_verflussiger"
+                  },
+                  "name": "Data_1_min",
+                  "outputTopic": "splunk"
+                },
+                "W16FunctionTesterODUIV590461": {
+                  "publishingIntervalMs": 500,
+                  "republishingIntervalMs": 0,
+                  "onChangeSubmitFullModel": false,
+                  "onRepublishSubmitFullModel": false,
+                  "nodes": {
+                    "S7.Producing": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bProducing",
+                    "HeizleistungSoll": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fHeizleistungSoll",
+                    "StartSchrauber1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bStartSchrauber1",
+                    "VentilEntleeren430Y3": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bVentilEntleeren_430Y3",
+                    "StatusTemperiergeraet": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.nStatusTemperiergeraet",
+                    "VentilVorlaufMono430Y1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bVentilVorlaufMono_430Y1",
+                    "TempRaumluft": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fTempRaumluft",
+                    "StartSchrauber2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bStartSchrauber2",
+                    "SECVerfluessigungstemperatur": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Verfluessigungstemperatur_2s",
+                    "SECHeissgastemperaturT6": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Heissgastemperatur_T6_2s",
+                    "SECSauggastemperaturVerdichterT7": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Sauggastemperatur_Verdichter_T7_2s",
+                    "VentilRuecklauf425Y2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bVentilRuecklauf_425Y2",
+                    "VentilDruckluftEntleeren425Y4": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bVentilDruckluftEntleeren_425Y4",
+                    "NIOSchrauber1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bNIO_Schrauber1",
+                    "Lufteranzahl": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Lufter_anzahl",
+                    "SECVerdichterdrehzahl": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Verdichterdrehzahl_2s",
+                    "SECSauggastemperaturVerdampferT4": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Sauggastemperatur_Verdampfer_T4_2s",
+                    "Berg230VL2L3IO": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bBerg230VL2L3_IO",
+                    "FuellstandEntleerBehaelterMax": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bFuellstandEntleerBehaelterMax",
+                    "Pruefergebnis": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.sPruefergebnis",
+                    "VentilBypass425Y3": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bVentilBypass_425Y3",
+                    "VentilVorlaufSplit430Y4": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bVentilVorlaufSplit_430Y4",
+                    "ElLeistungPruefstand": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fElLeistungPruefstand",
+                    "TempAbluft": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fTempAbluft",
+                    "TempTemperiergeraet": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fTempTemperiergeraet",
+                    "Temperatur_Verfluessiger_gewaehlt": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.f_verflussiger_temp",
+                    "SECAlarm2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Alarm2",
+                    "Berg400VL2L3IO": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bBerg400VL2L3_IO",
+                    "ElLeistungSoll": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fElLeistungSoll",
+                    "AmpelRot": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bAmpelRot",
+                    "StatusPruefung": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.sStatusPruefung",
+                    "S7.Waiting": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bWaiting",
+                    "IOSchrauber2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bIOSchrauber2",
+                    "PumpeEntleertank": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bPumpeEntleertank",
+                    "FailText": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.sFailText",
+                    "SECUeberhitzung": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Ueberhitzung_2s",
+                    "Bit2Schrauber2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bBit2Schrauber2",
+                    "TempVerfluessiger2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fTempVerfluessiger2",
+                    "OutSteuerungEin": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bOutSteuerungEin",
+                    "Druck_Verfluessiger_gewaehlt": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.f_verflussiger_druck",
+                    "KaelteleistungSoll": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fKaelteleistungSoll",
+                    "LeistungLuefterSoll": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.iLeistungLuefterSoll",
+                    "S7.TestingFailed": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bGesamtergebnisFail",
+                    "SteuerungEin": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bSteuerungEin",
+                    "DruckVerfluessiger2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fDruckVerfluessiger2",
+                    "IOSchrauber1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bIOSchrauber1",
+                    "SECHWAlarm1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.HWAlarm1",
+                    "Herstellnummer": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.sHerstellnummer",
+                    "VentilVorlauf425Y1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bVentilVorlauf_425Y1",
+                    "TempVerfluessiger1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fTempVerfluessiger",
+                    "Versorgung230V": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bVersorgung230V",
+                    "S7.TestingPassed": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bGesamtergebnisPass",
+                    "SECVerdampfungsdruckP1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Verdampfungsdruck_P1_2s",
+                    "TempTemperiergeraetIst": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fTempTemperiergeraetIst",
+                    "SECVerfluessigungsdruckP2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Verflussigungsdruck_P2_2s",
+                    "Bit2Schrauber1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bBit2Schrauber1",
+                    "NotHalt": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bNotHalt",
+                    "SECHWAlarm2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.HWAlarm2",
+                    "NIOSchrauber2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bNIOSchrauber2",
+                    "Bit1Schrauber2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bBit1Schrauber2",
+                    "COPGesamtIst": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fCOPGesamtIst",
+                    "TempTemperiergeraetSoll": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fTempTemperiergeraetSoll",
+                    "VentilRuecklaufSplit430Y5": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bVentilRuecklaufSplit_430_5",
+                    "DruckVerfluessiger": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fDruckVerfluessiger",
+                    "StatusAnlage": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.iStatusAnlage",
+                    "S7.TestingCanceled": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bGesamtergebnisCanceled",
+                    "SECLufterdrehzahl": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Lufterdrehzahl_2s",
+                    "AmpelWeiss": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bAmpelWeiss",
+                    "Versorgung400V": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bVersorgung400V",
+                    "COPVerdichterIst": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fCOPVerdichterIst",
+                    "HeizleistungIst": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fHeizleistungIst",
+                    "SECUeberhitzungSoll": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Soll_Ueberhitzung_2s",
+                    "AmpelGelb": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bAmpelGelb",
+                    "AmpelGruen": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bAmpelGruen",
+                    "ElLeistungVerdichter400": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fElLeistungVerdichter400",
+                    "VentilRuecklaufMono430Y2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bVentilRuecklaufMono_430Y2",
+                    "SECEEVOeffnung": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.EEV_Oeffnung_2s",
+                    "COPSoll": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fCOPSoll",
+                    "EEVFail": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.EevFail",
+                    "Berg400VL1L2IO": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bBerg400VL1L2_IO",
+                    "Bit1Schrauber1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bBit1Schrauber1",
+                    "StoerungSicherung": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bStoerungSicherung",
+                    "ElLeistungVerdichter230": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fElLeistungVerdichter230",
+                    "Berg230VL1L2IO": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bBerg230VL1L2_IO",
+                    "SECLufterdrehzahl2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Lufterdrehzahl_2s_2",
+                    "StatusSEWLuefter": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bStatusSEWLuefter",
+                    "FuellstandEntleerBehaelterMin": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bFuellstandEntleerBehaelterMin",
+                    "ElLeistungohneHilfsleistung": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fElLeistung_ohne_Hilfsleistung",
+                    "SECLufteintrittstemperaturT5": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Lufteintrittstemperatur_T5_2s",
+                    "SECVerdampfungstemperatur": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Verdampfungstemperatur_2s",
+                    "VentilDruckpumpe425W7": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bVentilDruckpumpe_425W7",
+                    "SECAlarm1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.Alarm1",
+                    "StoerungMotoren": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bStoerungMotoren",
+                    "S.3_Main_Water_Supply_VL_425Y1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.bOutV_Befullen_VL_425Y1",
+                    "S.3_Main_Water_Return_RL_425Y2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.bOutV_Entleeren_RL_425Y2",
+                    "S.3_Bypass_VRL_425Y3": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.bOutV_Bypass_VRL_425Y3",
+                    "S.3_MONO_Water_Supply_VL_430Y1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.bOutV_Befullen_MONO_VL_430Y1",
+                    "S.3_MONO_Water_Return_RL_430Y2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.bOutV_Entleeren_MONO_RL_430Y2",
+                    "S3_Old_System_Outlet_430Y3": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.bOutV_Ausblasen_430Y3",
+                    "S.3_SPLIT_Water_Return_RL_430Y4": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.bOut_Entleeren_SPLIT_RL_430Y4",
+                    "S.3_SPLIT_Water_Supply_VL_430Y5": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.bOut_Befullen_SPLIT_VL_430Y5",
+                    "S.3_Start_Screwdriver_1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.B_Start_Schrauber_1",
+                    "S.3_Start_Screwdriver_2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.B_Start_Schrauber_2",
+                    "S.3_Mono_Temp_Return_360A2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fTempVorlaufMono",
+                    "S.3_Mono_Temp_Supply_360A1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fTempRuecklaufMono",
+                    "S.3_Main_Water_Supply_Pressure_360BP1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fDruckVorlauf",
+                    "S.3_Main_Water_Return_Pressure_360BP2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fDruckRuecklauf",
+                    "S.3_Main_Water_Flow_365B1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fMassenstrom",
+                    "Wasser_aus": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.b_Wasser_aus",
+                    "Massestrommessgerat_365B1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.nIN_Massestrommessgerat_365B1",
+                    "S.5_Pump_Buffer_Tank": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.VPumpe",
+                    "S.3_Buffer_Tank_VL_430Y7": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.Ventil_2",
+                    "Drucksensor_360BP1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.nIN_Drucksensor_360BP1",
+                    "Drucksensor_360BP2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.nIN_Drucksensor_360BP2",
+                    "S.5_Pump_High_Pressure_605M4": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.bOutV_Wasserdruck_pumpe",
+                    "S.3_SPLIT_Water_Temp_Return": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fTempRuecklaufSplit",
+                    "S.3_SPLIT_Water_Temp_Supply": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fTempVorlaufSplit",
+                    "S.3_High_Pressure_VL_430Y8": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.Ventil_1",
+                    "S.3_High_Pressure_605W4.2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.fDruckDruckpruefung",
+                    "Luft_ausblasen_425Y4": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.bOutV_Luft_ausblasen_425Y4",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.bf_step11_1": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.bf_step11_1",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.bf_step11_2": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.bf_step11_2",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.bf_step11_3": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.bf_step11_3",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.bf_step11_4": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.bf_step11_4",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.bf_step11_5": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.bf_step11_5",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.bf_step11_6": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.bf_step11_6",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.T1_k": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.T1_k",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.T2_k": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.T2_k",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.T3_k": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.T3_k",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.T4_k": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.T4_k",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.T5_k": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.T5_k",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.T6_k": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.T6_k",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.T7_k": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.T7_k",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.T8_k": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.T8_k",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.T9_k": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.T9_k",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.T10_k": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.T10_k",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.PA_CT": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.PA_CT",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.PA_T0": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.PA_T0",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONTStep1_2.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONTStep1_2.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONTStep1_2.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONTStep1_2.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONTstep1_3.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONTstep1_3.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONTstep1_3.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONTstep1_3.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONTStep1_4.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONTStep1_4.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONTStep1_4.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONTStep1_4.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONTStep1_5.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONTStep1_5.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONTStep1_5.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONTStep1_5.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONBefuellen1.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONBefuellen1.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONBefuellen1.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONBefuellen1.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONBefuellen2.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONBefuellen2.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONBefuellen2.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONBefuellen2.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONEntleeren1.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONEntleeren1.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONEntleeren1.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONEntleeren1.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONEntleeren2.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONEntleeren2.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONEntleeren2.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONEntleeren2.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTON_EEV.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTON_EEV.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTON_EEV.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTON_EEV.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONT_DruckprZeit.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONT_DruckprZeit.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONT_DruckprZeit.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONT_DruckprZeit.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONT_schritt2.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONT_schritt2.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONT_schritt2.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONT_schritt2.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONEntleeren_pumpe.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONEntleeren_pumpe.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.MAIN.fbTONEntleeren_pumpe.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=MAIN.fbTONEntleeren_pumpe.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.P1_p": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.P1_p",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.P2_p": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.P2_p",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.eev_50_ok": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.eev_50_ok",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_PLCTALK.eev_50": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_PLCTALK.eev_50",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_IO_N.nInStatusTemp": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.nInStatusTemp",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL_IO_N.Geraet7State": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_IO_N.Geraet7State",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y0.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y0.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y0.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y0.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y1.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y1.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y1.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y1.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y2.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y2.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y2.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y2.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y3.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y3.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y3.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y3.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y4.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y4.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y4.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y4.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y5.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y5.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y5.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y5.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y6.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y6.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11y6.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11y6.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11t0.IN": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11t0.IN",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.t11t0.Q": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.t11t0.Q",
+                    "BeckhoffTwinCAT_IV590461.PLC1.GVL.prufung_anzeige": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL.prufung_anzeige",
+                    "S1.Connected": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bLivebitVisu",
+                    "S7.TestingStarted": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.bStarted"
+                  },
+                  "name": "W16FunctionTesterODUIV590461",
+                  "outputTopic": "splunk"
+                },
+                "vibration_sensors": {
+                  "onChangeSubmitFullModel": false,
+                  "onRepublishSubmitFullModel": false,
+                  "nodes": {
+                    "vibration_f_x_axis": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.f_x_achse",
+                    "vibration_f_y_axis": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.f_y_achse",
+                    "vibration_f_z_axis": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.f_z_achse",
+                    "vibration_f_s1_value": "ns=3;s=BeckhoffTwinCAT_IV590461.nsuri=urn:BeckhoffAutomation:Ua:PLC1;s=GVL_OPC_UA.f_s1_value"
+                  },
+                  "name": "vibration_sensors",
+                  "outputTopic": "splunk",
+                  "publishingIntervalMs": 50
+                }
+              },
+              "subscriptions": {},
+              "url": "opc.tcp://199.216.1.8:4980",
+              "resetBlackListIntervalMs": 5000
+            },
+            "client": {
+              "application": {
+                "security": {
+                  "authentication": {
+                    "credentials": {},
+                    "strategy": "Anonymous"
+                  },
+                  "endpoint": {
+                    "isEnabled": true,
+                    "level": 0,
+                    "mode": "None",
+                    "policy": "None",
+                    "timeout": 15000
+                  }
+                }
+              },
+              "session": {
+                "subscription": {}
+              },
+              "optimizeNodeValueReadAccess": false
+            },
+            "edgeMethodMapping": {},
+            "conditions": {},
+            "statusCodeMapping": {}
+          }
+        },
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.OpcUaClientModule/versions/2",
+        "$messageOutputs": {
+          "W16FunctionTesterODUIV590461.Data_1_min": "splunk",
+          "W16FunctionTesterODUIV590461.S1.Data": "splunkPoll",
+          "W16FunctionTesterODUIV590461.W16FunctionTesterODUIV590461": "splunk",
+          "W16FunctionTesterODUIV590461.vibration_sensors": "splunk",
+          "W16FunctionTesterODUIV590461.GatewayWatchdog": "splunkPoll"
+        },
+        "$timestamp": "2023-08-29T12:16:37.8153537Z",
+        "$version": 2
+      }
+    },
+    "streamprocessor": {
+      "configuration": {
+        "$version": 0
+      }
+    },
+    "logger": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.FileLoggerModule/versions/1",
+        "$timestamp": "2020-09-17T16:03:49.6186636Z",
+        "$version": 1
+      }
+    },
+    "splunk": {
+      "configuration": {
+        "endpoint": {
+          "url": "https://10.13.21.22:8088/services/collector/event",
+          "token": "e526855e-eea0-4106-91e9-496a09b6d17a",
+          "sslCheck": false
+        },
+        "interval": 1000,
+        "$messageInputs": {
+          "splunk": "event",
+          "splunkPoll": "telemetry"
+        },
+        "name": "splunk",
+        "host": "C191.2.27.175-4248",
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.SplunkHecModule/versions/3",
+        "sendTimestamp": true,
+        "sourceType": "_json",
+        "bufferQueueSettings": {
+          "enablePersist": false
+        },
+        "$timestamp": "2024-03-21T21:23:42.2313604Z",
+        "$version": 1
+      }
+    },
+    "system": {
+      "configuration": {
+        "firewallrules": {
+          "AdminAPIAutoRuleHTTP": {
+            "description": "Auto generated rule from AdminApiModule for HTTP Port.",
+            "action": "accept",
+            "direction": "inbound",
+            "protocol": "tcp",
+            "srcPort": 0,
+            "destPort": 80
+          },
+          "AdminAPIAutoRuleHTTPS": {
+            "description": "Auto generated rule from AdminApiModule for HTTPS Port.",
+            "action": "accept",
+            "direction": "inbound",
+            "protocol": "tcp",
+            "srcPort": 0,
+            "destPort": 443
+          }
+        },
+        "$timestamp": "2024-04-11T12:51:03.8025936Z",
+        "$version": 1
+      }
+    }
+  }
+}
