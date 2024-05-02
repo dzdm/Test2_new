@@ -1,0 +1,138 @@
+{
+  "modules": {
+    "azure": {
+      "configuration": {
+        "$version": 0
+      }
+    },
+    "mqtt": {
+      "configuration": {
+        "broker": {
+          "tls": {
+            "allowUntrustedCertificates": true,
+            "use": false
+          },
+          "cleansession": true,
+          "clientid": "123",
+          "enabled": false,
+          "hostname": "20.160.160.148",
+          "password": "hivemq",
+          "port": 8883,
+          "username": "admin"
+        },
+        "$messageInputs": {},
+        "default_message_retain_flag": true,
+        "topic": "test",
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.MqttSenderModule/versions/2",
+        "skip_non_json_messages_from_mqttbroker": false,
+        "$messageOutputs": {},
+        "subscribe": {},
+        "maxQueueSize": 1000,
+        "$timestamp": "2024-01-26T10:21:43.3037822Z",
+        "$version": 2
+      }
+    },
+    "modbus": {
+      "configuration": {
+        "$messageOutputs": {},
+        "servers": {
+          "NewServer": {
+            "connection": {
+              "variant": "Tcp",
+              "tcp": {
+                "ipAddress": "127.0.0.1",
+                "port": 502
+              }
+            },
+            "slaves": {}
+          }
+        },
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.ModbusReaderModule/versions/2",
+        "$timestamp": "2024-01-17T13:54:38.7395454Z",
+        "$version": 1
+      }
+    },
+    "logger": {
+      "configuration": {
+        "$version": 0
+      }
+    },
+    "mustache": {
+      "configuration": {
+        "$version": 0
+      }
+    },
+    "rfcreader": {
+      "configuration": {
+        "$version": 0
+      }
+    },
+    "opcua": {
+      "configuration": {
+        "servers": {},
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.OpcUaClientModule/versions/2",
+        "$messageOutputs": {},
+        "$timestamp": "2024-04-12T07:47:45.3750645Z",
+        "$version": 25
+      }
+    },
+    "splunk": {
+      "configuration": {
+        "endpoint": {
+          "url": "https://10.13.21.22:8088/services/collector/event",
+          "token": "",
+          "sslCheck": false,
+          "proxy": ""
+        },
+        "host": "C191.2.27.175-4420",
+        "interval": 1000,
+        "sendTimestamp": true,
+        "sourceType": "_json",
+        "bufferQueueSettings": {
+          "enablePersist": false
+        },
+        "$messageInputs": {
+          "splunk": "event",
+          "splunkPoll": "telemetry"
+        },
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.SplunkHecModule/versions/3",
+        "$timestamp": "2023-06-06T05:33:02.2735873Z",
+        "$version": 8
+      }
+    },
+    "center": {
+      "configuration": {
+        "$version": 0
+      }
+    },
+    "streamprocessor": {
+      "configuration": {
+        "$version": 0
+      }
+    },
+    "system": {
+      "configuration": {
+        "firewallrules": {
+          "AdminAPIAutoRuleHTTP": {
+            "description": "Auto generated rule from AdminApiModule for HTTP Port.",
+            "action": "accept",
+            "direction": "inbound",
+            "protocol": "tcp",
+            "srcPort": 0,
+            "destPort": 80
+          },
+          "AdminAPIAutoRuleHTTPS": {
+            "description": "Auto generated rule from AdminApiModule for HTTPS Port.",
+            "action": "accept",
+            "direction": "inbound",
+            "protocol": "tcp",
+            "srcPort": 0,
+            "destPort": 443
+          }
+        },
+        "$timestamp": "2023-02-21T17:43:55.2719315Z",
+        "$version": 1
+      }
+    }
+  }
+}
