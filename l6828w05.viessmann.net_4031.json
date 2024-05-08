@@ -1,0 +1,605 @@
+{
+  "modules": {
+    "mustache": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.MustacheEnricherModule/versions/1",
+        "$timestamp": "2023-11-03T06:31:30.2288275Z",
+        "$version": 1
+      }
+    },
+    "azure": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.IotHubSenderModule/versions/1",
+        "$timestamp": "2023-11-03T06:31:30.1754131Z",
+        "$version": 1
+      }
+    },
+    "center": {
+      "configuration": {
+        "$timestamp": "2023-11-03T06:31:30.2419119Z",
+        "$version": 1
+      }
+    },
+    "modbus": {
+      "configuration": {
+        "$messageOutputs": {
+          "modbus_test.slave.modbus_PG": "modbus_PG"
+        },
+        "servers": {
+          "modbus_test": {
+            "connection": {
+              "variant": "Tcp",
+              "tcp": {
+                "ipAddress": "199.216.0.137",
+                "port": 4840
+              }
+            },
+            "slaves": {
+              "slave": {
+                "pollGroups": {
+                  "modbus_PG": {
+                    "model": {
+                      "Sensor": {
+                        "registerStartAddress": 1,
+                        "registerLength": 1,
+                        "functionCode": 1
+                      }
+                    },
+                    "intervalMs": 1000,
+                    "sourceMode": "UseSlaveName"
+                  }
+                },
+                "setupGroups": {},
+                "slaveId": 1,
+                "subscriptionGroups": {}
+              }
+            }
+          }
+        },
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.ModbusReaderModule/versions/2",
+        "$timestamp": "2023-11-03T06:31:30.1861571Z",
+        "$version": 1
+      }
+    },
+    "mqtt": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/MqttSender.IotEdge.Modules.MqttSenderModule/versions/1",
+        "$timestamp": "2023-11-03T06:31:30.1836304Z",
+        "$version": 1
+      }
+    },
+    "rfcreader": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.RFC1006ReaderModule/versions/1",
+        "$timestamp": "2023-11-03T06:31:30.2288626Z",
+        "$version": 1
+      }
+    },
+    "opcua": {
+      "configuration": {
+        "servers": {
+          "W16FunctionTesterODUIV1673000201": {
+            "client": {
+              "session": {
+                "subscription": {}
+              },
+              "application": {
+                "security": {
+                  "authentication": {
+                    "strategy": "Anonymous",
+                    "credentials": {}
+                  },
+                  "endpoint": {
+                    "isEnabled": true,
+                    "level": 0,
+                    "mode": "None",
+                    "timeout": 15000,
+                    "policy": "None"
+                  }
+                }
+              },
+              "optimizeNodeValueReadAccess": true
+            },
+            "endpoint": {
+              "url": "opc.tcp://199.216.0.137:4840",
+              "subscriptions": {},
+              "pollGroups": {
+                "S1.Data": {
+                  "nodes": {
+                    "S1.SettingMode_PG": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.SettingMode",
+                    "S1.Waiting_PG": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.Waiting",
+                    "S1.MachineDowntime_PG": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.MachineDowntime",
+                    "S1.Producing_PG": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.Producing",
+                    "S1.MaintenanceMode_PG": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.MaintananceMode"
+                  },
+                  "intervalMs": 15000,
+                  "name": "S1.Data",
+                  "outputTopic": "splunkPoll"
+                },
+                "GatewayWatchdog": {
+                  "nodes": {
+                    "Gateway_Temperature_PG": "ns=3;s=_System.General.Temperature"
+                  },
+                  "name": "GatewayWatchdog",
+                  "outputTopic": "splunkPoll",
+                  "intervalMs": 900000
+                }
+              },
+              "subscriptionGroups": {
+                "AlarmList": {
+                  "publishingIntervalMs": 1000,
+                  "republishingIntervalMs": 0,
+                  "onChangeSubmitFullModel": false,
+                  "onRepublishSubmitFullModel": true,
+                  "nodes": {
+                    "S7.AlarmWord_02": "ns=2;s=S7-1.DB.DB400 Meldetexte.Meldungen HMI Wort_2",
+                    "S7.AlarmWord_04": "ns=2;s=S7-1.DB.DB400 Meldetexte.Meldungen HMI Wort_4",
+                    "S7.AlarmWord_11": "ns=2;s=S7-1.DB.DB400 Meldetexte.Meldungen HMI Wort_11",
+                    "S7.AlarmWord_03": "ns=2;s=S7-1.DB.DB400 Meldetexte.Meldungen HMI Wort_3",
+                    "S7.AlarmWord_08": "ns=2;s=S7-1.DB.DB400 Meldetexte.Meldungen HMI Wort_8",
+                    "S7.AlarmWord_01": "ns=2;s=S7-1.DB.DB400 Meldetexte.Meldungen HMI Wort_1",
+                    "S7.AlarmWord_09": "ns=2;s=S7-1.DB.DB400 Meldetexte.Meldungen HMI Wort_9",
+                    "S7.AlarmWord_07": "ns=2;s=S7-1.DB.DB400 Meldetexte.Meldungen HMI Wort_7",
+                    "S7.AlarmWord_10": "ns=2;s=S7-1.DB.DB400 Meldetexte.Meldungen HMI Wort_10",
+                    "S7.AlarmWord_05": "ns=2;s=S7-1.DB.DB400 Meldetexte.Meldungen HMI Wort_5",
+                    "S7.AlarmWord_06": "ns=2;s=S7-1.DB.DB400 Meldetexte.Meldungen HMI Wort_6"
+                  },
+                  "name": "AlarmList",
+                  "outputTopic": "splunk"
+                },
+                "W16FunctionTesterODUIV1673000201": {
+                  "publishingIntervalMs": 1000,
+                  "republishingIntervalMs": 0,
+                  "onChangeSubmitFullModel": false,
+                  "onRepublishSubmitFullModel": false,
+                  "nodes": {
+                    "S1.Connected": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.Connected",
+                    "S7.ToolNumber": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.ToolNumber",
+                    "S1.ManualMode": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.ManualMode",
+                    "S7.OutletTemperature": "ns=2;s=S7-1.DB.DB155 Istwerte.Temperatur.R\u00fccklauf",
+                    "S3.CurrentL1": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Current_L1",
+                    "S7.TestingEnd": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.TestingEnd",
+                    "S3.VoltageL1N": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Voltage_L1_N",
+                    "S7.SplitActiveCondenserInletTemperature": "ns=2;s=S7-1.DB.DB155 Istwerte.Temperatur.Split VL",
+                    "S7.ActiveProgram": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.ActiveProgram",
+                    "S7.OutletPressure": "ns=2;s=S7-1.DB.DB155 Istwerte.Druck.R\u00fccklauf",
+                    "S7.TestingStopped": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.TestingStopped",
+                    "S1.SetupMode": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.SetupMode",
+                    "S3.VoltageL3L1": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Voltage_L3_L1",
+                    "S1.MaintenanceMode": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.MaintananceMode",
+                    "S1.ValenceQuantityPulse": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.ValenceQuantityPulse",
+                    "S3.Frequency": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Frequency",
+                    "S3.CosPhiL3": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.CosPhiL3",
+                    "S3.ActivePower": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.ActivePower",
+                    "S7.ChamberTemeprature1": "ns=2;s=S7-1.DB.DB155 Istwerte.Temperatur.Kammer_1",
+                    "S3.CosPhiL1": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.CosPhiL1",
+                    "S3.ReactivePower": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.ReactivePower",
+                    "S3.CurrentL2": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Current_L2",
+                    "S7.TankHydrostaticPressure": "ns=2;s=S7-1.DB.DB155 Istwerte.Druck.Beh\u00e4lter",
+                    "S3.ApparentPower": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.ApparentPower",
+                    "S7.InletPressure": "ns=2;s=S7-1.DB.DB155 Istwerte.Druck.Vorlauf",
+                    "S3.VoltageL3N": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Voltage_L3_N",
+                    "S1.PowerOn": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.PowerOn",
+                    "S3.CosPhiTotal": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.CosPhiTotal",
+                    "S7.ProductPartNumber": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.ProductPartNumber",
+                    "S7.Split_2_CondenserInletPressure": "ns=2;s=S7-1.DB.DB155 Istwerte.Druck.Split_2_VL",
+                    "S7.TestingStart": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.TestingStart",
+                    "S7.ProcessStart": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.ProcessStart",
+                    "S3.ElectricMeter": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.ElectricMeter",
+                    "S7.PartImpulse": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.PartImpulse",
+                    "S7.ChamberTemeprature2": "ns=2;s=S7-1.DB.DB155 Istwerte.Temperatur.Kammer_2",
+                    "S1.CollectedError": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.CollectedError",
+                    "S7.Split1_CondenserInletTemprature": "ns=2;s=S7-1.DB.DB155 Istwerte.Temperatur.Split_1_VL",
+                    "S3.CurrentL3": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Current_L3",
+                    "S1.MachineDowntime": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.MachineDowntime",
+                    "S3.VoltageL1L2": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Voltage_L1_L2",
+                    "S7.ProcessTotalTime": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.TaktTime",
+                    "S1.CollectedOperating": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.CollectedOperating",
+                    "S7.SplitActiveCondenserInletPressure": "ns=2;s=S7-1.DB.DB155 Istwerte.Druck.Split VL",
+                    "S1.CollectedMaintenance": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.CollectedMaintenance",
+                    "S7.InletTemperature": "ns=2;s=S7-1.DB.DB155 Istwerte.Temperatur.Vorlauf",
+                    "S1.CollectedWarning": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.CollectedWarning",
+                    "S7.AcutalProcessStep": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.AcutalProcessStep",
+                    "S7.TestingRunning": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.TestingRunning",
+                    "S7.ProcessEnd": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.ProcessEnd",
+                    "S1.InternalComm": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.InternalComm",
+                    "S1.Waiting": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.Waiting",
+                    "S3.VoltageL2N": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Voltage_L2_N",
+                    "S1.AutomaticMode": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.AutomaticMode",
+                    "S1.Producing": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.Producing",
+                    "S1.QuantityPulse": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.QuantityPulse",
+                    "S3.CosPhiL2": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.CosPhiL2",
+                    "S8.Sachnummer": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_8.Sachnummer",
+                    "S1.SettingMode": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_1.SettingMode",
+                    "S7.Split2_CondenserInletTemprature": "ns=2;s=S7-1.DB.DB155 Istwerte.Temperatur.Split_2_VL",
+                    "S7.Split1_CondenserInletPressure": "ns=2;s=S7-1.DB.DB155 Istwerte.Druck.Split_1_VL",
+                    "Energie.Gesamt": "ns=2;s=S7-1.DB.DB155 Istwerte.Energie.Gesamt",
+                    "Energie.Split": "ns=2;s=S7-1.DB.DB155 Istwerte.Energie.Split",
+                    "Energie.Mono": "ns=2;s=S7-1.DB.DB155 Istwerte.Energie.Mono",
+                    "Druck_Beh\u00e4lter": "ns=2;s=S7-1.DB.DB155 Istwerte.Druck_Beh\u00e4lter",
+                    "Druck_R\u00fccklaufbeh\u00e4lter": "ns=2;s=S7-1.DB.DB155 Istwerte.Druck_R\u00fccklaufbeh\u00e4lter",
+                    "Volumenstrom_Vorlauf": "ns=2;s=S7-1.DB.DB155 Istwerte.Volumenstrom Vorlauf",
+                    "SEC.Temp.Vorlauf_T1_261": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Temp..Vorlauf T1 261",
+                    "SEC.Temp.Maschinenr_T2_262": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Temp..Maschinenr_ T2 262",
+                    "SEC.Temp.Saug_K\u00fchlen_T3_263": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Temp..Saug_K\u00fchlen T3 263",
+                    "SEC.Temp.Saug_Verd_T4_264": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Temp..Saug_Verd_T4 264",
+                    "SEC.Temp.Saug_prim\u00e4r_T5_475": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Temp..Saug_prim\u00e4r T5 475",
+                    "SEC.Temp.Heissgas_T6_304": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Temp..Heissgas T6 304",
+                    "SEC.Temp.Sauggas Verd.T7_265": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Temp..Sauggas Verd. T7 265",
+                    "SEC.Temp.Verdampfungstemp_502": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Temp..Verdampfungstemp. 502",
+                    "SEC.Temp.Verfl\u00fcssigungstemp_294": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Temp..Verfl\u00fcssigungstemp. 294",
+                    "SEC.Temp.\u00dcberhitzung_283": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Temp..\u00dcberhitzung 283",
+                    "SEC.Druck.Niederdruck_P1_258": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Druck.Niederdruck P1 258",
+                    "SEC.Druck.Hochdruck_P2_259": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Druck.Hochdruck P2 259",
+                    "SEC.Druck.DeltaP_P2/P1_356": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Druck.Delta P P2/P1 356",
+                    "SEC.Drehzahlen.Verdichterdrehzahl_291": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Drehzahlen.Verdichterdrehzahl 291",
+                    "SEC.Drehzahlen.L\u00fcfterdrehzahl1_361": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Drehzahlen.L\u00fcfterdrehzahl 1 361",
+                    "SEC.Drehzahlen.L\u00fcfterdrehzahl2_449": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Drehzahlen.L\u00fcfterdrehzahl 2 449",
+                    "SEC.Rest.EEV-Oeffnung_282": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Rest.EEV-Oeffnung 282",
+                    "SEC.Rest.Heizleistung_324": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Rest.Heizleistung 324",
+                    "SEC.Rest.ApplikationState_303": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Rest.Applikation State 303",
+                    "SEC.Rest.InvertStatus_433": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Rest.Invert Status 433",
+                    "SEC.Rest.VVSInputPower_436": "ns=2;s=S7-1.DB.DB155 Istwerte.SEC.Rest.VVS Input Power 436",
+                    "R290.Scannerdaten": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.Scannerdaten",
+                    "R290.001_01_sw_version_VCMU_1": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.001_01_sw_version VCMU_1",
+                    "R290.001_01_sw_version_VCMU_2": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.001_01_sw_version VCMU_2",
+                    "R290.001_01_sw_version_VCMU_3": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.001_01_sw_version VCMU_3",
+                    "R290.001_01_sw_version_VCMU_4": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.001_01_sw_version VCMU_4",
+                    "R290.Trennzeichen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.Trennzeichen",
+                    "R290.001_01_sw_version_Summe": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.001_01_sw_version Summe",
+                    "R290.001_02_hw_Version_Summe": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.001_02_hw_Version Summe",
+                    "R290.001_05_production_traceability_VCMU": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.001_05_production_traceability VCMU",
+                    "290.002_16_PIV_lesen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.002_16_PIV lesen",
+                    "R290.004_01_error_current": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.004_01_error_current",
+                    "R290.05_16_SECONDARY_OUTLET_TEMP.T1": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.05_16_SECONDARY OUTLET TEMP. T1",
+                    "R290.T1_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T1 zeigen",
+                    "R290.T1_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T1 ok",
+                    "R290.05_26_SECONDARY_HX_LIQUID_TEMP.T2": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.05_26_SECONDARY HX LIQUID TEMP. T2",
+                    "R290.T2_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T2 zeigen",
+                    "R290.T2_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T2 ok",
+                    "R290.05_23_EVAPORATOR_VAPOR_TEMP.T3": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.05_23_EVAPORATOR VAPOR TEMP. T3",
+                    "R290.T3_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T3 zeigen",
+                    "R290.T3_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T3 ok",
+                    "R290.05_24_COMPRESSOR_DISCHARGE.TEMP.T4": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.05_24_COMPRESSOR DISCHARGE. TEMP. T4",
+                    "R290.T4_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T4 zeigen",
+                    "R290.T4_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T4 ok",
+                    "R290.05_25_COMPRESSOR_SUCTION.TEMP.T5": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.05_25_COMPRESSOR SUCTION. TEMP. T5",
+                    "R290.T5_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T5 zeigen",
+                    "R290.T5_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T5 ok",
+                    "R290.05_27_PRIMARY_HX_LIQUID_TEMP.T6": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.05_27_PRIMARY HX LIQUID TEMP. T6",
+                    "R290.T6_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T6 zeigen",
+                    "R290.T6_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T6 ok",
+                    "R290.05_28_PRIMARY_INLET_TEMP.T7": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.05_28_PRIMARY INLET TEMP. T7",
+                    "R290.T7_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T7 zeigen",
+                    "R290.T7_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T7 ok",
+                    "R290.05_29_OIL_TEMP.T8": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.05_29_OIL TEMP. T8",
+                    "R290.T8_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T8 zeigen",
+                    "R290.T8_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T8 ok",
+                    "R290.05_30_ECONOMIZER_LIQUID_TEMP.T9": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.05_30_ECONOMIZER LIQUID TEMP. T9",
+                    "R290.T9_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T9 zeigen",
+                    "R290.T9_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T9 ok",
+                    "R290.11_06_COMP_OPERATING_POINT_PA_T0": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.11_06_COMP_OPERATING_POINT PA T 0",
+                    "R290.T0_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T0 zeigen",
+                    "R290.T0_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T0 ok",
+                    "R290.T0_K\u00fchle_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.T0 K\u00fchlen ok",
+                    "R290.11_06_COMP_OPERATING_POINT_PA_T_C": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.11_06_COMP_OPERATING_POINT PA T C",
+                    "R290.Tc_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.Tc zeigen",
+                    "R290.TC_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.TC ok",
+                    "R290.TC_K\u00fchlen_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.TC K\u00fchlen ok",
+                    "R290.05_31_COMPRESSOR_INL.PRESS.P1": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.05_31_COMPRESSOR INL. PRESS. P1",
+                    "R290.TP1_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.TP1 zeigen",
+                    "R290.P_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.P1 ok",
+                    "R290.05_21_COMPRESSOR_OUTL.PRESS.P2": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.05_21_COMPRESSOR OUTL. PRESS. P2",
+                    "R290.TP2_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.TP2 zeigen",
+                    "R290.P2_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.P2 ok",
+                    "R290.11_05_COMPESSOR_SPEED": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.11_05_COMPESSOR SPEED",
+                    "R290.TCS_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.TCS zeigen",
+                    "R290.SAUGGAS\u00dcBERHIZUNGcompressorInletTemperature-evaporatorVaporTemperature": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.SAUGGAS\u00dcBERHIZUNGcompressorInletTemperature - evaporatorVaporTemperature",
+                    "R290.UNTERK\u00dcHLUNG_secondaryHxLiquidTemperature_secondaryOutletTemperature": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.UNTERK\u00dcHLUNG secondaryHxLiquidTemperature - secondaryOutletTemperature",
+                    "R290.11_04_hp_fan_1": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.11_04_hp_fan_1",
+                    "R290.TFAN1_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.TFAN1 zeigen",
+                    "R290.11_04_hp_fan_2": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.11_04_hp_fan_2",
+                    "R290.TFAN2_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.TFAN2 zeigen",
+                    "R290.05_34_compressor_chamber_temp": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.05_34_compressor_chamber_temp",
+                    "R290.TCT_zeigen": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.TCT zeigen",
+                    "R290.TCT_ok": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.E3 R290.TCT ok",
+                    "S3.VoltageL2L3": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Voltage_L2_L3",
+                    "S6.DisorderReset": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_6.DisorderReset",
+                    "SEC.295.Alarm_1": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_256 - 380.295Alarm 1 (Software alarms)",
+                    "SEC.296_Alarm_2": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_256 - 380.296Alarm 2 (Software alarms)",
+                    "SEC.297_Hardware_Alarm_1": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_256 - 380.297Hardware Alarm 1 Triggers direct alarm state/shutdown (self healing)",
+                    "SEC.298_Hardware_Alarm_2": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_256 - 380.298Hardware Alarm 2 Triggers direct alarm state/shutdown (self healing)",
+                    "SEC.299_Alarm_1_shadow": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_256 - 380.299Alarm1 shadow",
+                    "SEC.300_Alarm_2_shadow": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_256 - 380.300Alarm2 shadow",
+                    "SEC.301_Hardware_Alarm_1_shadow": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_256 - 380.301Hardware Alarm1 shadow",
+                    "SEC.302_Hardware_Alarm_2_shadow": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_256 - 380.302Hardware Alarm2 shadow",
+                    "SEC.427_VssShutDownError1ShadowIndex": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_381 - 505.427VssShutDownError1ShadowIndex",
+                    "SEC.428_VssShutDownError2ShadowIndex": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_381 - 505.428VssShutDownError2ShadowIndex",
+                    "SEC.429_VssShutDownError3ShadowIndex": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_381 - 505.429VssShutDownError3ShadowIndex",
+                    "SEC..430_VssShutDownError4ShadowIndex": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_381 - 505.430VssShutDownError4ShadowIndex",
+                    "SEC.431_VssShutDownError5ShadowIndex": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_381 - 505.431VssShutDownError5ShadowIndex",
+                    "SEC.457_VssShutDownError1": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_381 - 505.457VssShutDownError1",
+                    "SEC.458_VssShutDownError2": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_381 - 505.458VssShutDownError2",
+                    "SEC..459_VssShutDownError3": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_381 - 505.459VssShutDownError3",
+                    "SEC.460_VssShutDownError4": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_381 - 505.460VssShutDownError4",
+                    "SEC.461_VssShutDownError5": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_381 - 505.461VssShutDownError5",
+                    "SEC.282_Valve_opening": "ns=2;s=S7-1.DB.DB200 SEC VC200.Eing\u00e4nge_256 - 380.282Valve opening",
+                    "S7-1.DB.DB801 E3 R290 OTX.EEV starten": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.EEV starten"
+                  },
+                  "name": "W16FunctionTesterODUIV1673000201",
+                  "outputTopic": "splunk"
+                },
+                "VibrationSensors": {
+                  "onChangeSubmitFullModel": false,
+                  "onRepublishSubmitFullModel": true,
+                  "nodes": {
+                    "S9.Vibrationssensoren.Vibration_1": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.Vibrationssensoren.Vibration_1",
+                    "S9.Vibrationssensoren.Vibration_2": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.Vibrationssensoren.Vibration_2",
+                    "S9.Vibrationssensoren.Vibration_3": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.Vibrationssensoren.Vibration_3",
+                    "S9.Vibrationssensoren.Vibration_4": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.Vibrationssensoren.Vibration_4",
+                    "S9.Vibrationssensoren.Vibration_5": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.Vibrationssensoren.Vibration_5",
+                    "S9.Vibrationssensoren.Vibration_6": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.Vibrationssensoren.Vibration_6",
+                    "S9.Vibrationssensoren.Vibration_7": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.Vibrationssensoren.Vibration_7",
+                    "S9.Vibrationssensoren.Vibration_8": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.Vibrationssensoren.Vibration_8"
+                  },
+                  "name": "VibrationSensors",
+                  "outputTopic": "splunk",
+                  "publishingIntervalMs": 1000,
+                  "republishingIntervalMs": 0
+                },
+                "Republished_1000ms": {
+                  "republishingIntervalMs": 1000,
+                  "onChangeSubmitFullModel": true,
+                  "onRepublishSubmitFullModel": true,
+                  "nodes": {
+                    "S9.ProductType": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_9.General.ProductType"
+                  },
+                  "name": "Republished_1000ms",
+                  "outputTopic": "splunk",
+                  "publishingIntervalMs": 1000
+                },
+                "Data_100ms": {
+                  "onChangeSubmitFullModel": false,
+                  "onRepublishSubmitFullModel": false,
+                  "nodes": {
+                    "S3.Current_L1_100ms": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Current_L1",
+                    "S3.Current_L2_100ms": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Current_L2",
+                    "S3.Current_L3_100ms": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Current_L3",
+                    "S3.Voltage_L1_N_100ms": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Voltage_L1_N",
+                    "S3.Voltage_L2_N_100ms": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Voltage_L2_N",
+                    "S3.Voltage_L3_N_100ms": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Voltage_L3_N",
+                    "S3.ActivePower_100ms": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.ActivePower",
+                    "S3.Voltage_L1_L2_100ms": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Voltage_L1_L2",
+                    "S3.Voltage_L2_L3_100ms": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Voltage_L2_L3",
+                    "S3.Voltage_L3_L1_100ms": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric 1.Voltage_L3_L1",
+                    "S3.device.Current_L1": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric pump.Current_L1",
+                    "S3.device.Current_L2": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric pump.Current_L2",
+                    "S3.device.Current_L3": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric pump.Current_L3",
+                    "S3.device.Voltage_L1_N": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric pump.Voltage_L1_N",
+                    "S3.device.Voltage_L2_N": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric pump.Voltage_L2_N",
+                    "S3.device.Voltage_L3_N": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric pump.Voltage_L3_N",
+                    "S3.device.Voltage_L1_L2": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric pump.Voltage_L1_L2",
+                    "S3.device.Voltage_L2_L3": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric pump.Voltage_L2_L3",
+                    "S3.device.Voltage_L3_L1": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric pump.Voltage_L3_L1",
+                    "S3.device.ActivePower": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric pump.ActivePower",
+                    "S3.device.Frequency": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric pump.Frequency",
+                    "S3.device.ElectricMeter": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_3.electric pump.ElectricMeter",
+                    "S7.MBK.DB801.Crane_Heizung_ein": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Crane Heizung ein",
+                    "S7.MBK.DB801.Fan_Heizung_ein": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Fan Heizung ein",
+                    "S7.MBK.DB801.Base_Heizung_ein": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Base Heizung ein",
+                    "S7.MBK.DB801.Crane_Heizung_aus": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Crane Heizung aus",
+                    "S7.MBK.DB801.Base_Heizung_aus": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Base Heizung aus",
+                    "S7.MBK.DB801.Fan_Heizung_aus": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Fan Heizung aus",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_0_Heizung_stoppen": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 0 Heizung stoppen",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_1_Caseheizen_ein": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 1Caseheizen ein",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_2_Wert_pr\u00fcfen_Case": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 2 Wert pr\u00fcfen Case",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_3_Caseheizung aus": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 3 Caseheizung aus",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_4_Baseheizen_ein": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 4 Baseheizen ein",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_5_Wert_pr\u00fcfen_Base": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 5 Wert pr\u00fcfen Base",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_6_Baseheizung_aus": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 6 Baseheizung aus",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_7_Fanheizen_ein": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 7 Fanheizen ein",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_8_Wert_pr\u00fcfen_Fan": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 8 Wert pr\u00fcfen Fan",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_9_Fanheizung_aus": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 9 Fanheizung aus",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_10_Fehlerspeicher_auslesen": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 10 Fehlerspeicher auslesen",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_11_Werkeinstellung_setzen": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 11 Werkeinstellung setzen",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_12_Tracebility_schreiben": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 12 Tracebility schreiben",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Takt_13_Heizungen_Aus": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Takt 13 Heizungen Aus",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Schrittkette_l\u00e4uft": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Schrittkette l\u00e4uft",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Schrittkette_fertig": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Schrittkette fertig",
+                    "S7.MBK.DB801.Ablauf_Heizungen.Schrittkette_Reset": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ablauf Heizungen.Schrittkette Reset",
+                    "S7.MBK.DB801.Zahler_Heizung_starten": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Zahler Heizung starten",
+                    "S7.MBK.DB801.Bit_Heizung_Starten": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Bit Heizung Starten",
+                    "S7.MBK.DB801.Bit_Heizung_Stoppen": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Bit Heizung Stoppen",
+                    "S7.MBK.DB801.NEU_R290.CASE_HEATER_W": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.NEU_R290.CASE HEATER W",
+                    "S7.MBK.DB801.NEU_R290.BASE_HEATER_W": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.NEU_R290.BASE HEATER W",
+                    "S7.MBK.DB801.NEU_R290.FAN_HEATER_W": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.NEU_R290.FAN HEATER W",
+                    "S7.MBK.DB801.NEU_R290.TOL_BASE_LOW": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.NEU_R290.TOL BASE LOW",
+                    "S7.MBK.DB801.NEU_R290.TOL_BASE_HIGH": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.NEU_R290.TOL BASE HIGH",
+                    "S7.MBK.DB801.NEU_R290.TOL_Fan_HEATER": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.NEU_R290.TOL Fan HEATER",
+                    "S7.MBK.DB801.NEU_R290.TOL_Heater": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.NEU_R290.TOL Heater",
+                    "S7.MBK.DB801.Counter_lesen_Heizung": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Counter_lesen_Heizung",
+                    "S7.MBK.DB801.Schnittstelle.Sendebuffer.Sollsequenz_Nr": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Schnittstelle.Sendebuffer.Sollsequenz_Nr",
+                    "S7.MBK.DB801.Schnittstelle.Sendebuffer.Sollsequenz_Text": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Schnittstelle.Sendebuffer.Sollsequenz_Text",
+                    "S7.MBK.DB801.Schnittstelle.Sendebuffer.Sollsequenz_Wert": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Schnittstelle.Sendebuffer.Sollsequenz_Wert",
+                    "S7.MBK.DB801.Schnittstelle.Sequenzen.001_01": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Schnittstelle.Sequenzen.001_01",
+                    "S7.MBK.DB801.Schnittstelle.SOLLWERTE.CASE_HEATER_W": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Schnittstelle.SOLLWERTE.CASE HEATER W",
+                    "S7.MBK.DB801.Schnittstelle.SOLLWERTE.BASE_HEATER_W": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Schnittstelle.SOLLWERTE.BASE HEATER W",
+                    "S7.MBK.DB801.Schnittstelle.SOLLWERTE.FAN_HEATER_W": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Schnittstelle.SOLLWERTE.FAN HEATER W",
+                    "S7.MBK.DB801.PLCTALK_GESTARTET": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.PLCTALK GESTARTET",
+                    "S7.MBK.DB801.PLCTALK_GESTOPPT": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.PLCTALK GESTOPPT",
+                    "S7.MBK.DB801.Bit_PLCTALK_STARTEN": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Bit PLCTALK STARTEN",
+                    "S7.MBK.DB801.Bit_PLCTALK_STOPPEN": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Bit PLCTALK STOPPEN",
+                    "S7.MBK.DB801.Startroutine_aktivieren": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Startroutine aktivieren",
+                    "S7.MBK.DB801.Sensorroutine_aktivieren": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Sensorroutine aktivieren",
+                    "S7.MBK.DB801.PLCTALK_tot": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.PLCTALK_tot",
+                    "S7.MBK.DB801.Heizen_Start": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Heizen Start",
+                    "S7.MBK.DB801.EEV_starten": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.EEV starten",
+                    "S7.MBK.DB801.Heizungen_testen": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Heizungen testen",
+                    "S7.MBK.DB801.K\u00fchlen_Starten": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.K\u00fchlen Starten",
+                    "S7.MBK.DB801.Ende_Starten": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Ende Starten",
+                    "S7.MBK.DB801.Heizen_Stop": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Heizen Stop",
+                    "S7.MBK.DB801.Auslieferungszustand_setzen": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Auslieferungszustand setzen",
+                    "S7.MBK.DB801.Heizen_Aus": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Heizen Aus",
+                    "S7.MBK.DB801.Fehler_auslesen": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Fehler auslesen",
+                    "S7.MBK.DB801.Traceability_schreiben": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Traceability schreiben",
+                    "S7.MBK.DB801.Zahler_Vorlauf_starten": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Zahler Vorlauf starten",
+                    "S7.MBK.DB801.Bit_Ger\u00e4t_Vorlauf_melden": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Bit Ger\u00e4t Vorlauf melden",
+                    "S7.MBK.DB801.Bit_Ger\u00e4t_Vorlauf_stoppen": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Bit Ger\u00e4t Vorlauf stoppen",
+                    "S7.MBK.DB801.HP_delivery_w": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.HP_delivery_w",
+                    "S7.MBK.DB801.Tracebility__w": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Tracebility _w",
+                    "S7.MBK.DB801.Message_PLCTALK": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Message PLCTALK",
+                    "S7.MBK.DB500.Takt_90_Pr\u00fcfung el. Leistungsaufnahme.Ergebnisse.Leistungsaufnahme_Z\u00e4hler": "ns=2;s=S7-1.DB.DB500 Ablauf Mono/Split.Takt 90 Pr\u00fcfung el. Leistungsaufnahme.Ergebnisse.Leistungsaufnahme Z\u00e4hler",
+                    "S7.MBK.DB500.Takt_104_W\u00e4rmepumpe_R290_HEIZUNGEN.Ergebnisse.Leistung_ohne_Heizung": "ns=2;s=S7-1.DB.DB500 Ablauf Mono/Split.Takt 104 W\u00e4rmepumpe R290 HEIZUNGEN.Ergebnisse.Leistung ohne Heizung",
+                    "S7.MBK.DB500.Takt_104_W\u00e4rmepumpe_R290_HEIZUNGEN.Ergebnisse.Leistung_case": "ns=2;s=S7-1.DB.DB500 Ablauf Mono/Split.Takt 104 W\u00e4rmepumpe R290 HEIZUNGEN.Ergebnisse.Leistung case",
+                    "S7.MBK.DB500.Takt_104_W\u00e4rmepumpe_R290_HEIZUNGEN.Ergebnisse.Leistung_base": "ns=2;s=S7-1.DB.DB500 Ablauf Mono/Split.Takt 104 W\u00e4rmepumpe R290 HEIZUNGEN.Ergebnisse.Leistung base",
+                    "S7.MBK.DB500.Takt_104_W\u00e4rmepumpe_R290_HEIZUNGEN.Ergebnisse.Leistung_fan": "ns=2;s=S7-1.DB.DB500 Ablauf Mono/Split.Takt 104 W\u00e4rmepumpe R290 HEIZUNGEN.Ergebnisse.Leistung fan",
+                    "S7.MBK.DB500.Takt_104_W\u00e4rmepumpe_R290_HEIZUNGEN.Ergebnisse.case_io": "ns=2;s=S7-1.DB.DB500 Ablauf Mono/Split.Takt 104 W\u00e4rmepumpe R290 HEIZUNGEN.Ergebnisse.case io",
+                    "S7.MBK.DB500.Takt_104_W\u00e4rmepumpe_R290_HEIZUNGEN.Ergebnisse.base_io": "ns=2;s=S7-1.DB.DB500 Ablauf Mono/Split.Takt 104 W\u00e4rmepumpe R290 HEIZUNGEN.Ergebnisse.base io",
+                    "S7.MBK.DB500.Takt_104_W\u00e4rmepumpe_R290_HEIZUNGEN.Ergebnisse.fan_io": "ns=2;s=S7-1.DB.DB500 Ablauf Mono/Split.Takt 104 W\u00e4rmepumpe R290 HEIZUNGEN.Ergebnisse.fan io",
+                    "S7.MBK.DB500.Takt_104_W\u00e4rmepumpe_R290_HEIZUNGEN.Taktzeit": "ns=2;s=S7-1.DB.DB500 Ablauf Mono/Split.Takt 104 W\u00e4rmepumpe R290 HEIZUNGEN.Taktzeit",
+                    "S7.MBK.DB500.Takt_104_W\u00e4rmepumpe_R290_HEIZUNGEN.Eing\u00e4nge.Taste_Start": "ns=2;s=S7-1.DB.DB500 Ablauf Mono/Split.Takt 104 W\u00e4rmepumpe R290 HEIZUNGEN.Eing\u00e4nge.Taste Start",
+                    "S7.TestingPassed": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.TestingPassed",
+                    "S7.TestingFailed": "ns=2;s=S7-1.DB.IOT-SmartFactory.State_7.TestingFailed",
+                    "S7.Counter_lesen_Ende": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Counter lesen Ende",
+                    "S7.Counter_lesen_EEV": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Counter_lesen_EEV",
+                    "S7.Counter_lesen_Start": "ns=2;s=S7-1.DB.DB801 E3 R290 OTX.Counter_lesen_Start",
+                    "S7.DB155_E3_R290_Gas_superheat_value_at _compressor_suction": "ns=2;s=S7-1.DB.DB155 Istwerte.E3 R290_Rechenwerte.Sauggas\u00fcberhitzung compressorSuctionSuperheat"
+                  },
+                  "name": "Data_100ms",
+                  "outputTopic": "splunk",
+                  "publishingIntervalMs": 1000
+                },
+                "Result": {
+                  "onChangeSubmitFullModel": true,
+                  "onRepublishSubmitFullModel": false,
+                  "nodes": {
+                    "ResultODUR410A.Datum_Zeit": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Datum_Zeit",
+                    "ResultODUR410A.Pr\u00fcfling": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Pr\u00fcfling",
+                    "ResultODUR410A.Sachnummer": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Sachnummer",
+                    "ResultODUR410A.Herstellnummer": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Herstellnummer",
+                    "ResultODUR410A.Pr\u00fcfer": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Pr\u00fcfer",
+                    "ResultODUR410A.Pr\u00fcfergebnis": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Pr\u00fcfergebnis",
+                    "ResultODUR410A.Pr\u00fcfzeit": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Pr\u00fcfzeit",
+                    "ResultODUR410A.Raumtemperatur": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Raumtemperatur",
+                    "ResultODUR410A.Vorlauftemperatur_Heizkreis": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Vorlauftemperatur_Heizkreis",
+                    "ResultODUR410A.R\u00fccklauftemperatur_Heizkreis": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.R\u00fccklauftemperatur_Heizkreis",
+                    "ResultODUR410A.el_Leistungsaufnahme_Ist": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.el_Leistungsaufnahme_Ist",
+                    "ResultODUR410A.el_Leistungsaufnahme_Soll": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.el_Leistungsaufnahme_Soll",
+                    "ResultODUR410A.Abweichung_Leistungsaufnahme": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Abweichung_Leistungsaufnahme",
+                    "ResultODUR410A.max_Abweichung_Leistungsaufnahme_neg": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.max_Abweichung_Leistungsaufnahme_neg",
+                    "ResultODUR410A.max_Abweichung_Leistungsaufnahme_Pos": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.max_Abweichung_Leistungsaufnahme_Pos",
+                    "ResultODUR410A.Abbruchgrund": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Abbruchgrund",
+                    "ResultODUR410A.Softwareversion_K\u00e4ltekreisregler": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Softwareversion_K\u00e4ltekreisregler",
+                    "ResultODUR410A.Dip_Schalterstellung_ALZ": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Dip_Schalterstellung_ALZ",
+                    "ResultODUR410A.DIP-Schalter_Wert": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.DIP-Schalter_Wert",
+                    "ResultODUR410A.Abweichung Ganzzahl": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Abweichung Ganzzahl",
+                    "ResultODUR410A.Abweichung real": "ns=2;s=S7-1.DB.DB212_Tageslog_Daten.Abweichung real"
+                  },
+                  "name": "Result",
+                  "outputTopic": "splunk",
+                  "publishingIntervalMs": 10000
+                },
+                "vibration_DB155": {
+                  "onChangeSubmitFullModel": false,
+                  "onRepublishSubmitFullModel": false,
+                  "nodes": {
+                    "Vibration_1": "ns=2;s=S7-1.DB.DB155 Istwerte.Vibrationssensoren.Vibration_1",
+                    "Vibration_2": "ns=2;s=S7-1.DB.DB155 Istwerte.Vibrationssensoren.Vibration_2",
+                    "Vibration_3": "ns=2;s=S7-1.DB.DB155 Istwerte.Vibrationssensoren.Vibration_3",
+                    "Vibration_4": "ns=2;s=S7-1.DB.DB155 Istwerte.Vibrationssensoren.Vibration_4",
+                    "Vibration_5": "ns=2;s=S7-1.DB.DB155 Istwerte.Vibrationssensoren.Vibration_5",
+                    "Vibration_6": "ns=2;s=S7-1.DB.DB155 Istwerte.Vibrationssensoren.Vibration_6",
+                    "Vibration_7": "ns=2;s=S7-1.DB.DB155 Istwerte.Vibrationssensoren.Vibration_7",
+                    "Vibration_8": "ns=2;s=S7-1.DB.DB155 Istwerte.Vibrationssensoren.Vibration_8"
+                  },
+                  "name": "vibration_DB155",
+                  "outputTopic": "splunk",
+                  "publishingIntervalMs": 1000
+                }
+              },
+              "resetBlackListIntervalMs": 15000
+            },
+            "edgeMethodMapping": {},
+            "conditions": {},
+            "statusCodeMapping": {}
+          }
+        },
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.OpcUaClientModule/versions/2",
+        "$messageOutputs": {
+          "W16FunctionTesterODUIV1673000201.S1.Data": "splunkPoll",
+          "W16FunctionTesterODUIV1673000201.AlarmList": "splunk",
+          "W16FunctionTesterODUIV1673000201.W16FunctionTesterODUIV1673000201": "splunk",
+          "W16FunctionTesterODUIV1673000201.VibrationSensors": "splunk",
+          "W16FunctionTesterODUIV1673000201.Republished_1000ms": "splunk",
+          "W16FunctionTesterODUIV1673000201.Data_100ms": "splunk",
+          "W16FunctionTesterODUIV1673000201.Result": "splunk",
+          "W16FunctionTesterODUIV1673000201.GatewayWatchdog": "splunkPoll",
+          "W16FunctionTesterODUIV1673000201.vibration_DB155": "splunk"
+        },
+        "$timestamp": "2024-03-28T12:18:24.5728244Z",
+        "$version": 1
+      }
+    },
+    "streamprocessor": {
+      "configuration": {
+        "$timestamp": "2023-11-03T06:31:30.2434699Z",
+        "$version": 1
+      }
+    },
+    "logger": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.FileLoggerModule/versions/1",
+        "$timestamp": "2023-11-03T06:31:30.2287203Z",
+        "$version": 1
+      }
+    },
+    "splunk": {
+      "configuration": {
+        "endpoint": {
+          "url": "https://10.13.21.22:8088/services/collector/event",
+          "token": "6112a68b-c8f6-4946-a7dd-7d48a710bc83",
+          "sslCheck": false
+        },
+        "interval": 1000,
+        "$messageInputs": {
+          "splunk": "event",
+          "splunkPoll": "telemetry",
+          "$system_signals": "telemetry"
+        },
+        "host": "I6828w05.4031",
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.SplunkHecModule/versions/3",
+        "sendTimestamp": true,
+        "sourceType": "_json",
+        "bufferQueueSettings": {
+          "enablePersist": false
+        },
+        "$timestamp": "2024-04-12T05:46:44.0800796Z",
+        "$version": 3
+      }
+    },
+    "system": {
+      "configuration": {
+        "firewallrules": {
+          "AdminAPIAutoRuleHTTP": {
+            "description": "Auto generated rule from AdminApiModule for HTTP Port.",
+            "action": "accept",
+            "direction": "inbound",
+            "protocol": "tcp",
+            "srcPort": 0,
+            "destPort": 80
+          },
+          "AdminAPIAutoRuleHTTPS": {
+            "description": "Auto generated rule from AdminApiModule for HTTPS Port.",
+            "action": "accept",
+            "direction": "inbound",
+            "protocol": "tcp",
+            "srcPort": 0,
+            "destPort": 443
+          }
+        },
+        "$timestamp": "2024-04-11T12:49:05.9976621Z",
+        "$version": 1
+      }
+    }
+  }
+}
