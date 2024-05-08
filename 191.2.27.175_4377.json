@@ -1,256 +1,511 @@
-{
-  "modules": {
-    "azure": {
-      "configuration": {
-        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.IotHubSenderModule/versions/1",
-        "$timestamp": "2024-03-06T13:17:26.4237673Z",
-        "$version": 5
-      }
-    },
-    "mqtt": {
-      "configuration": {
-        "$schema": "https://schemas.robotron.de/robogate/modules/MqttSender.IotEdge.Modules.MqttSenderModule/versions/1",
-        "$timestamp": "2024-03-06T13:17:26.4239327Z",
-        "$version": 5
-      }
-    },
-    "modbus": {
-      "configuration": {
-        "$messageOutputs": {
-          "modbus_test.slave.modbus_PG": "modbus_PG"
-        },
-        "servers": {
-          "modbus_test": {
-            "connection": {
-              "variant": "Tcp",
-              "tcp": {
-                "ipAddress": "199.216.3.155",
-                "port": 4840
-              }
-            },
-            "slaves": {
-              "slave": {
-                "pollGroups": {
-                  "modbus_PG": {
-                    "model": {
-                      "Sensor": {
-                        "registerStartAddress": 1,
-                        "registerLength": 1,
-                        "functionCode": 1
-                      }
-                    },
-                    "intervalMs": 1000,
-                    "sourceMode": "UseSlaveName"
-                  }
-                },
-                "setupGroups": {},
-                "slaveId": 1,
-                "subscriptionGroups": {}
-              }
-            }
-          }
-        },
-        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.ModbusReaderModule/versions/2",
-        "$timestamp": "2024-03-06T13:17:26.4243005Z",
-        "$version": 5
-      }
-    },
-    "logger": {
-      "configuration": {
-        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.FileLoggerModule/versions/1",
-        "$timestamp": "2024-03-06T13:17:26.4253549Z",
-        "$version": 5
-      }
-    },
-    "mustache": {
-      "configuration": {
-        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.MustacheEnricherModule/versions/1",
-        "$timestamp": "2024-03-06T13:17:26.4254206Z",
-        "$version": 5
-      }
-    },
-    "rfcreader": {
-      "configuration": {
-        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.RFC1006ReaderModule/versions/1",
-        "$timestamp": "2024-03-06T13:17:26.4254519Z",
-        "$version": 5
-      }
-    },
-    "opcua": {
-      "configuration": {
-        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.OpcUaClientModule/versions/2",
-        "servers": {
-          "W16HeatExSolderingPWT8524643_old": {
-            "endpoint": {
-              "pollGroups": {
-                "S1.Data": {
-                  "name": "S1.Data",
-                  "nodes": {
-                    "S1.PowerOn_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.PowerOn",
-                    "S1.Producing_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.Producing",
-                    "S1.Waiting_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.Waiting",
-                    "S1.MaintenanceMode_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.MaintenanceMode",
-                    "S1.MachineDowntime_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.MachineDowntime",
-                    "S1.SettingMode_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.SettingMode",
-                    "S1.Standby_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.Standby",
-                    "S7-1.DataBlocks.8524643_IOT_DB.Static.S1.Connected": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.Connected"
-                  },
-                  "intervalMs": 15000,
-                  "outputTopic": "splunkPoll"
-                },
-                "GatewayWatchdog": {
-                  "name": "GatewayWatchdog",
-                  "nodes": {
-                    "Gateway_Temperature_PG": "ns=3;s=_System.General.Temperature"
-                  },
-                  "intervalMs": 900000,
-                  "outputTopic": "splunkPoll"
-                }
-              },
-              "subscriptionGroups": {
-                "W16HeatExSolderingPWT ": {
-                  "onChangeSubmitFullModel": false,
-                  "onRepublishSubmitFullModel": true,
-                  "nodes": {
-                    "S7.TestingPassed": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.TestingPassed",
-                    "S7.TestingFailed": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.TestingFailed",
-                    "S7.ActualScan": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.ActualScan",
-                    "S7.Scan1Done": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan1Done",
-                    "S7.Scan2Done": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan2Done",
-                    "S7.Scan3Done": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan3Done",
-                    "S7.Scan1": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan1",
-                    "S7.Scan2": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan2",
-                    "S7.Scan3": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan3",
-                    "S7.Scan1Total": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan1Total",
-                    "S7.Scan2Total": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan2Total",
-                    "S7.Scan3Total": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan3Total"
-                  },
-                  "name": "W16HeatExSolderingPWT ",
-                  "outputTopic": "splunk",
-                  "publishingIntervalMs": 1000
-                }
-              },
-              "subscriptions": {},
-              "url": "opc.tcp://199.216.3.155:4840",
-              "resetBlackListIntervalMs": 15000
-            },
-            "client": {
-              "application": {
-                "security": {
-                  "authentication": {
-                    "credentials": {},
-                    "strategy": "Anonymous"
-                  },
-                  "endpoint": {
-                    "isEnabled": true,
-                    "level": 0,
-                    "mode": "None",
-                    "policy": "None",
-                    "timeout": 15000
-                  }
-                }
-              },
-              "session": {
-                "subscription": {}
-              },
-              "optimizeNodeValueReadAccess": false
-            },
-            "edgeMethodMapping": {},
-            "conditions": {},
-            "statusCodeMapping": {}
-          }
-        },
-        "$messageOutputs": {
-          "W16HeatExSolderingPWT8524643_old.S1.Data": "splunkPoll",
-          "W16HeatExSolderingPWT8524643_old.GatewayWatchdog": "splunkPoll",
-          "W16HeatExSolderingPWT8524643_old.W16HeatExSolderingPWT ": "splunk"
-        },
-        "$timestamp": "2024-03-11T11:14:49.3741327Z",
-        "$version": 102
-      }
-    },
-    "splunk": {
-      "configuration": {
-        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.SplunkHecModule/versions/3",
-        "endpoint": {
-          "url": "https://10.13.21.22:8088/services/collector/event",
-          "token": "6112a68b-c8f6-4946-a7dd-7d48a710bc83",
-          "sslCheck": false
-        },
-        "host": "C191.2.27.175-4377",
-        "interval": 1000,
-        "sendTimestamp": true,
-        "sourceType": "_json",
-        "bufferQueueSettings": {
-          "enablePersist": false
-        },
-        "$messageInputs": {
-          "splunkPoll": "telemetry",
-          "splunk": "event",
-          "$system_signals": "telemetry"
-        },
-        "$timestamp": "2024-03-06T13:17:26.4358226Z",
-        "$version": 11
-      }
-    },
-    "center": {
-      "configuration": {
-        "$timestamp": "2024-03-06T13:17:26.436479Z",
-        "$version": 4
-      }
-    },
-    "streamprocessor": {
-      "configuration": {
-        "$timestamp": "2024-03-06T13:17:26.4365671Z",
-        "$version": 4
-      }
-    },
-    "system": {
-      "configuration": {
-        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.EcmNetCore.Modules.SystemControlModule/versions/1",
-        "firewallrules": {
-          "AdminAPIAutoRuleHTTP": {
-            "description": "Auto generated rule from AdminApiModule for HTTP Port.",
-            "action": "accept",
-            "direction": "inbound",
-            "protocol": "tcp",
-            "destPort": 80,
-            "srcPort": 0
-          },
-          "AdminAPIAutoRuleHTTPS": {
-            "description": "Auto generated rule from AdminApiModule for HTTPS Port.",
-            "action": "accept",
-            "direction": "inbound",
-            "protocol": "tcp",
-            "destPort": 443,
-            "srcPort": 0
-          }
-        },
-        "metrics": {
-          "interval": 0,
-          "autoReset": false
-        },
-        "signals": {
-          "groups": {
-            "system_signals": {
-              "outputTopic": "system_signals",
-              "intervalMs": 60000,
-              "signals": {
-                "ss_modbus": {
-                  "source": "moduleStatus",
-                  "sourceKey": "modbus.status.connection.modbus_test.code"
-                },
-                "ss_opc": {
-                  "source": "moduleStatus",
-                  "sourceKey": "opcua.status.connection.W16HeatExSolderingPWT8524643.code"
-                }
-              }
-            }
-          }
-        },
-        "$timestamp": "2024-03-06T13:17:26.4365927Z",
-        "$version": 9
-      }
-    }
-  }
+{
+
+  "modules": {
+
+    "azure": {
+
+      "configuration": {
+
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.IotHubSenderModule/versions/1",
+
+        "$timestamp": "2024-03-06T13:17:26.4237673Z",
+
+        "$version": 5
+
+      }
+
+    },
+
+    "mqtt": {
+
+      "configuration": {
+
+        "$schema": "https://schemas.robotron.de/robogate/modules/MqttSender.IotEdge.Modules.MqttSenderModule/versions/1",
+
+        "$timestamp": "2024-03-06T13:17:26.4239327Z",
+
+        "$version": 5
+
+      }
+
+    },
+
+    "modbus": {
+
+      "configuration": {
+
+        "$messageOutputs": {
+
+          "modbus_test.slave.modbus_PG": "modbus_PG"
+
+        },
+
+        "servers": {
+
+          "modbus_test": {
+
+            "connection": {
+
+              "variant": "Tcp",
+
+              "tcp": {
+
+                "ipAddress": "199.216.3.155",
+
+                "port": 4840
+
+              }
+
+            },
+
+            "slaves": {
+
+              "slave": {
+
+                "pollGroups": {
+
+                  "modbus_PG": {
+
+                    "model": {
+
+                      "Sensor": {
+
+                        "registerStartAddress": 1,
+
+                        "registerLength": 1,
+
+                        "functionCode": 1
+
+                      }
+
+                    },
+
+                    "intervalMs": 1000,
+
+                    "sourceMode": "UseSlaveName"
+
+                  }
+
+                },
+
+                "setupGroups": {},
+
+                "slaveId": 1,
+
+                "subscriptionGroups": {}
+
+              }
+
+            }
+
+          }
+
+        },
+
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.ModbusReaderModule/versions/2",
+
+        "$timestamp": "2024-03-06T13:17:26.4243005Z",
+
+        "$version": 5
+
+      }
+
+    },
+
+    "logger": {
+
+      "configuration": {
+
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.FileLoggerModule/versions/1",
+
+        "$timestamp": "2024-03-06T13:17:26.4253549Z",
+
+        "$version": 5
+
+      }
+
+    },
+
+    "mustache": {
+
+      "configuration": {
+
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.MustacheEnricherModule/versions/1",
+
+        "$timestamp": "2024-03-06T13:17:26.4254206Z",
+
+        "$version": 5
+
+      }
+
+    },
+
+    "rfcreader": {
+
+      "configuration": {
+
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.RFC1006ReaderModule/versions/1",
+
+        "$timestamp": "2024-03-06T13:17:26.4254519Z",
+
+        "$version": 5
+
+      }
+
+    },
+
+    "opcua": {
+
+      "configuration": {
+
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.OpcUaClientModule/versions/2",
+
+        "servers": {
+
+          "W16HeatExSolderingPWT8524643_old": {
+
+            "endpoint": {
+
+              "pollGroups": {
+
+                "S1.Data": {
+
+                  "name": "S1.Data",
+
+                  "nodes": {
+
+                    "S1.PowerOn_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.PowerOn",
+
+                    "S1.Producing_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.Producing",
+
+                    "S1.Waiting_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.Waiting",
+
+                    "S1.MaintenanceMode_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.MaintenanceMode",
+
+                    "S1.MachineDowntime_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.MachineDowntime",
+
+                    "S1.SettingMode_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.SettingMode",
+
+                    "S1.Standby_PG": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.Standby",
+
+                    "S7-1.DataBlocks.8524643_IOT_DB.Static.S1.Connected": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S1.Connected"
+
+                  },
+
+                  "intervalMs": 15000,
+
+                  "outputTopic": "splunkPoll"
+
+                },
+
+                "GatewayWatchdog": {
+
+                  "name": "GatewayWatchdog",
+
+                  "nodes": {
+
+                    "Gateway_Temperature_PG": "ns=3;s=_System.General.Temperature"
+
+                  },
+
+                  "intervalMs": 900000,
+
+                  "outputTopic": "splunkPoll"
+
+                }
+
+              },
+
+              "subscriptionGroups": {
+
+                "W16HeatExSolderingPWT ": {
+
+                  "onChangeSubmitFullModel": false,
+
+                  "onRepublishSubmitFullModel": true,
+
+                  "nodes": {
+
+                    "S7.TestingPassed": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.TestingPassed",
+
+                    "S7.TestingFailed": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.TestingFailed",
+
+                    "S7.ActualScan": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.ActualScan",
+
+                    "S7.Scan1Done": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan1Done",
+
+                    "S7.Scan2Done": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan2Done",
+
+                    "S7.Scan3Done": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan3Done",
+
+                    "S7.Scan1": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan1",
+
+                    "S7.Scan2": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan2",
+
+                    "S7.Scan3": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan3",
+
+                    "S7.Scan1Total": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan1Total",
+
+                    "S7.Scan2Total": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan2Total",
+
+                    "S7.Scan3Total": "ns=2;s=S7-1.DB.8524643_IOT_DB.Static.S7.Scan3Total"
+
+                  },
+
+                  "name": "W16HeatExSolderingPWT ",
+
+                  "outputTopic": "splunk",
+
+                  "publishingIntervalMs": 1000
+
+                }
+
+              },
+
+              "subscriptions": {},
+
+              "url": "opc.tcp://199.216.3.155:4840",
+
+              "resetBlackListIntervalMs": 15000
+
+            },
+
+            "client": {
+
+              "application": {
+
+                "security": {
+
+                  "authentication": {
+
+                    "credentials": {},
+
+                    "strategy": "Anonymous"
+
+                  },
+
+                  "endpoint": {
+
+                    "isEnabled": true,
+
+                    "level": 0,
+
+                    "mode": "None",
+
+                    "policy": "None",
+
+                    "timeout": 15000
+
+                  }
+
+                }
+
+              },
+
+              "session": {
+
+                "subscription": {}
+
+              },
+
+              "optimizeNodeValueReadAccess": false
+
+            },
+
+            "edgeMethodMapping": {},
+
+            "conditions": {},
+
+            "statusCodeMapping": {}
+
+          }
+
+        },
+
+        "$messageOutputs": {
+
+          "W16HeatExSolderingPWT8524643_old.S1.Data": "splunkPoll",
+
+          "W16HeatExSolderingPWT8524643_old.GatewayWatchdog": "splunkPoll",
+
+          "W16HeatExSolderingPWT8524643_old.W16HeatExSolderingPWT ": "splunk"
+
+        },
+
+        "$timestamp": "2024-03-11T11:14:49.3741327Z",
+
+        "$version": 102
+
+      }
+
+    },
+
+    "splunk": {
+
+      "configuration": {
+
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.SplunkHecModule/versions/3",
+
+        "endpoint": {
+
+          "url": "https://10.13.21.22:8088/services/collector/event",
+
+          "token": "6112a68b-c8f6-4946-a7dd-7d48a710bc83",
+
+          "sslCheck": false
+
+        },
+
+        "host": "C191.2.27.175-4377",
+
+        "interval": 1000,
+
+        "sendTimestamp": true,
+
+        "sourceType": "_json",
+
+        "bufferQueueSettings": {
+
+          "enablePersist": false
+
+        },
+
+        "$messageInputs": {
+
+          "splunkPoll": "telemetry",
+
+          "splunk": "event",
+
+          "$system_signals": "telemetry"
+
+        },
+
+        "$timestamp": "2024-03-06T13:17:26.4358226Z",
+
+        "$version": 11
+
+      }
+
+    },
+
+    "center": {
+
+      "configuration": {
+
+        "$timestamp": "2024-03-06T13:17:26.436479Z",
+
+        "$version": 4
+
+      }
+
+    },
+
+    "streamprocessor": {
+
+      "configuration": {
+
+        "$timestamp": "2024-03-06T13:17:26.4365671Z",
+
+        "$version": 4
+
+      }
+
+    },
+
+    "system": {
+
+      "configuration": {
+
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.EcmNetCore.Modules.SystemControlModule/versions/1",
+
+        "firewallrules": {
+
+          "AdminAPIAutoRuleHTTP": {
+
+            "description": "Auto generated rule from AdminApiModule for HTTP Port.",
+
+            "action": "accept",
+
+            "direction": "inbound",
+
+            "protocol": "tcp",
+
+            "destPort": 80,
+
+            "srcPort": 0
+
+          },
+
+          "AdminAPIAutoRuleHTTPS": {
+
+            "description": "Auto generated rule from AdminApiModule for HTTPS Port.",
+
+            "action": "accept",
+
+            "direction": "inbound",
+
+            "protocol": "tcp",
+
+            "destPort": 443,
+
+            "srcPort": 0
+
+          }
+
+        },
+
+        "metrics": {
+
+          "interval": 0,
+
+          "autoReset": false
+
+        },
+
+        "signals": {
+
+          "groups": {
+
+            "system_signals": {
+
+              "outputTopic": "system_signals",
+
+              "intervalMs": 60000,
+
+              "signals": {
+
+                "ss_modbus": {
+
+                  "source": "moduleStatus",
+
+                  "sourceKey": "modbus.status.connection.modbus_test.code"
+
+                },
+
+                "ss_opc": {
+
+                  "source": "moduleStatus",
+
+                  "sourceKey": "opcua.status.connection.W16HeatExSolderingPWT8524643.code"
+
+                }
+
+              }
+
+            }
+
+          }
+
+        },
+
+        "$timestamp": "2024-03-06T13:17:26.4365927Z",
+
+        "$version": 9
+
+      }
+
+    }
+
+  }
+
 }
