@@ -1,0 +1,269 @@
+{
+  "modules": {
+    "mustache": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.MustacheEnricherModule/versions/1",
+        "$timestamp": "2023-11-03T06:57:13.7681727Z",
+        "$version": 1
+      }
+    },
+    "azure": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.IotHubSenderModule/versions/1",
+        "$timestamp": "2023-11-03T06:57:13.7179597Z",
+        "$version": 1
+      }
+    },
+    "center": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.EcmNetCore.Modules.DeviceCenterModule/versions/1",
+        "$timestamp": "2023-11-03T06:57:13.7698235Z",
+        "$version": 1
+      }
+    },
+    "modbus": {
+      "configuration": {
+        "$messageOutputs": {
+          "modbus_test.slave.modbus_PG": "modbus_PG"
+        },
+        "servers": {
+          "modbus_test": {
+            "connection": {
+              "variant": "Tcp",
+              "tcp": {
+                "ipAddress": "199.216.0.42",
+                "port": 4840
+              }
+            },
+            "slaves": {
+              "slave": {
+                "pollGroups": {
+                  "modbus_PG": {
+                    "model": {
+                      "Sensor": {
+                        "registerStartAddress": 1,
+                        "registerLength": 1,
+                        "functionCode": 1
+                      }
+                    },
+                    "intervalMs": 1000,
+                    "sourceMode": "UseSlaveName"
+                  }
+                },
+                "setupGroups": {},
+                "slaveId": 1,
+                "subscriptionGroups": {}
+              }
+            }
+          }
+        },
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.ModbusReaderModule/versions/2",
+        "$timestamp": "2023-11-03T06:57:13.7298041Z",
+        "$version": 1
+      }
+    },
+    "mqtt": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/MqttSender.IotEdge.Modules.MqttSenderModule/versions/2",
+        "$timestamp": "2023-11-03T06:57:13.7267549Z",
+        "$version": 1
+      }
+    },
+    "rfcreader": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.RFC1006ReaderModule/versions/1",
+        "$messageOutputs": {
+          "LinieRFCALTTest.Test1500": "splunk"
+        },
+        "plcs": {
+          "LinieRFCALTTest": {
+            "connection": "@{cpu=S7300; ip=191.1.87.59; rack=0; slot=2}",
+            "pollGroups": "",
+            "subscriptionGroups": "@{Test1500=}"
+          }
+        },
+        "$timestamp": "2023-11-03T06:57:13.7682326Z",
+        "$version": 1
+      }
+    },
+    "opcua": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.OpcUaClientModule/versions/2",
+        "servers": {
+          "W16FunctionTesterODUIV1673000278": {
+            "endpoint": {
+              "pollGroups": {
+                "S1.Data": {
+                  "nodes": {
+                    "S1.SettingMode_PG": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.SettingMode",
+                    "S1.MaintenanceMode_PG": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.MaintananceMode",
+                    "S1.MachineDowntime_PG": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.MachineDowntime",
+                    "S1.Producing_PG": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.Producing",
+                    "S1.Waiting_PG": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.Waiting"
+                  },
+                  "name": "S1.Data",
+                  "outputTopic": "splunkPoll",
+                  "intervalMs": 15000
+                },
+                "GatewayWatchdog": {
+                  "nodes": {
+                    "Gateway_Temperature_PG": "ns=3;s=_System.General.Temperature"
+                  },
+                  "name": "GatewayWatchdog",
+                  "outputTopic": "splunkPoll",
+                  "intervalMs": 1000
+                }
+              },
+              "subscriptionGroups": {
+                "W16FunctionTesterODUIV1673000278": {
+                  "onChangeSubmitFullModel": false,
+                  "onRepublishSubmitFullModel": true,
+                  "nodes": {
+                    "S7.ProductPartNumber": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.ProductPartNumber",
+                    "S7.ProcessStart": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.ProcessStart",
+                    "S7.AcutalProcessStep": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.AcutalProcessStep",
+                    "S7.ProcessEnd": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.ProcessEnd",
+                    "S7.TestingStart": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.TestingStart",
+                    "S7.TestingRunning": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.TestingRunning",
+                    "S7.TestingEnd": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.TestingEnd",
+                    "S7.TestingPassed": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.TestingPassed",
+                    "S7.TestingFailed": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.TestingFailed",
+                    "S7.TestingStopped": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.TestingStopped",
+                    "S7.ToolNumber": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.ToolNumber",
+                    "S7.PartImpulse": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.PartImpulse",
+                    "S7.TaktTime": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.TaktTime",
+                    "S7.ModelNumber": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_8.Sachnummer",
+                    "S1.Connected": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.x_Connected",
+                    "S1.PowerOn": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.PowerOn",
+                    "S1.AutomaticMode": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.AutomaticMode",
+                    "S1.ManualMode": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.ManualMode",
+                    "S1.SetupMode": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.SetupMode",
+                    "S1.SettingMode": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.SettingMode",
+                    "S1.MaintananceMode": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.MaintananceMode",
+                    "S1.MachineDowntime": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.MachineDowntime",
+                    "S1.InternalComm": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.InternalComm",
+                    "S1.Producing": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.Producing",
+                    "S1.Waiting": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.Waiting",
+                    "S1.QuantityPulse": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.QuantityPulse",
+                    "S1.ValenceQuantityPulse": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.ValenceQuantityPulse",
+                    "S7.ActiveProgram": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_7.ActiveProgram",
+                    "S7.MBK_T9_Start_EEV": "ns=2;s=W16_ODU_L3_EOL.DB.DB801 E3 R290 OTX.T9 Start EEV",
+                    "S7.MBK_T9+2_Start_EEV": "ns=2;s=W16_ODU_L3_EOL.DB.DB801 E3 R290 OTX.T9+2 Start EEV",
+                    "S7.MBK_Timer_EEV": "ns=2;s=W16_ODU_L3_EOL.DB.DB801 E3 R290 OTX.Timer EEV",
+                    "S7.MBK_EEV_Start": "ns=2;s=W16_ODU_L3_EOL.DB.DB801 E3 R290 OTX.EEV starten",
+                    "S7.MBK.T9_Temperature": "ns=2;s=W16_ODU_L3_EOL.DB.DB213_Pr\u00fcfling_Daten_MBK.05_30_ECONOMIZER LIQUID TEMP. T9",
+                    "S6.CollectedError": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.x_CollectedError",
+                    "S6.CollectedWarning": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.x_CollectedWarning",
+                    "S6.CollectedMaintenance": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.x_CollectedMaintenance",
+                    "S6.CollectedOperating": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_1.x_CollectedOperating",
+                    "S6.MessageActive": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_6.MessageActive",
+                    "S6.Message": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_6.Message",
+                    "S6.DisorderActive": "ns=2;s=W16_ODU_L3_EOL.DB.IOT-SmartFactory.State_6.DisorderActive"
+                  },
+                  "name": "W16FunctionTesterODUIV1673000278",
+                  "outputTopic": "splunk",
+                  "publishingIntervalMs": 100,
+                  "republishingIntervalMs": 0
+                }
+              },
+              "subscriptions": {},
+              "url": "opc.tcp://199.216.0.42:4840",
+              "resetBlackListIntervalMs": 15000
+            },
+            "client": {
+              "application": {
+                "security": {
+                  "authentication": {
+                    "credentials": {},
+                    "strategy": "Anonymous"
+                  },
+                  "endpoint": {
+                    "isEnabled": true,
+                    "level": 0,
+                    "mode": "None",
+                    "policy": "None",
+                    "timeout": 15000
+                  }
+                }
+              },
+              "session": {
+                "subscription": {}
+              },
+              "optimizeNodeValueReadAccess": true
+            },
+            "edgeMethodMapping": {}
+          }
+        },
+        "$messageOutputs": {
+          "W16FunctionTesterODUIV1673000278.S1.Data": "splunkPoll",
+          "W16FunctionTesterODUIV1673000278.W16FunctionTesterODUIV1673000278": "splunk",
+          "W16FunctionTesterODUIV1673000278.GatewayWatchdog": "splunkPoll"
+        },
+        "$timestamp": "2023-11-03T06:57:13.7683049Z",
+        "$version": 1
+      }
+    },
+    "streamprocessor": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.StreamProcessorModule/versions/1",
+        "$timestamp": "2023-11-03T06:57:13.7699708Z",
+        "$version": 1
+      }
+    },
+    "logger": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.FileLoggerModule/versions/1",
+        "$timestamp": "2023-11-03T06:57:13.7680221Z",
+        "$version": 1
+      }
+    },
+    "splunk": {
+      "configuration": {
+        "$schema": "https://schemas.robotron.de/robogate/modules/Robotron.IotEdge.Modules.SplunkHecModule/versions/3",
+        "endpoint": {
+          "url": "https://10.13.21.22:8088/services/collector/event",
+          "token": "6112a68b-c8f6-4946-a7dd-7d48a710bc83",
+          "sslCheck": false
+        },
+        "host": "I6828w05.4036",
+        "interval": 1000,
+        "sendTimestamp": true,
+        "sourceType": "_json",
+        "bufferQueueSettings": {
+          "enablePersist": false
+        },
+        "$messageInputs": {
+          "splunk": "event",
+          "splunkPoll": "telemetry",
+          "$system_signals": "telemetry"
+        },
+        "$timestamp": "2024-04-12T05:50:32.7283343Z",
+        "$version": 3
+      }
+    },
+    "system": {
+      "configuration": {
+        "firewallrules": {
+          "AdminAPIAutoRuleHTTP": {
+            "description": "Auto generated rule from AdminApiModule for HTTP Port.",
+            "action": "accept",
+            "direction": "inbound",
+            "protocol": "tcp",
+            "srcPort": 0,
+            "destPort": 80
+          },
+          "AdminAPIAutoRuleHTTPS": {
+            "description": "Auto generated rule from AdminApiModule for HTTPS Port.",
+            "action": "accept",
+            "direction": "inbound",
+            "protocol": "tcp",
+            "srcPort": 0,
+            "destPort": 443
+          }
+        },
+        "$timestamp": "2024-04-11T12:52:03.8904794Z",
+        "$version": 1
+      }
+    }
+  }
+}
